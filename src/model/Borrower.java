@@ -8,14 +8,13 @@ import operation.IFindchecked;
 public class Borrower implements IFindchecked {
 
     private List<Book> bookList = new ArrayList<Book>();
-    private String userName;
+    private String userName;//這個借閱人的名字
+    private int predefinedBorrowBookNumber;//他最多能借的書的數量
 
-    public Borrower() {
 
-    }
-
-    public Borrower(String userName) {//為要查詢的人
+    public Borrower(String userName, int predefinedBorrowBookNumber) {
         this.userName = userName;
+        this.predefinedBorrowBookNumber = predefinedBorrowBookNumber;
     }
 
     @Override
@@ -29,8 +28,31 @@ public class Borrower implements IFindchecked {
             }
         }
     }
-
+    
     public String showFormatResult(int i) {
+        
         return "ID: " + bookList.get(i).getBookId() + " Author: " + bookList.get(i).getAuthor() + " Subject: " + bookList.get(i).getSubject() + "";
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getPredefinedBorrowBookNumber() {
+        return predefinedBorrowBookNumber;
+    }
+
+    public void setPredefinedBorrowBookNumber(int predefinedBorrowBookNumber) {
+        this.predefinedBorrowBookNumber = predefinedBorrowBookNumber;
+    }
+    
+    
+    public Object testClassName(){
+        Object a = userName.getClass();
+        return a;
     }
 }
