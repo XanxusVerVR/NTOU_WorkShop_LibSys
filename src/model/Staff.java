@@ -1,13 +1,24 @@
 package model;
 
+import bean.Book;
 import java.util.List;
+import operation.IFindchecked;
 
-public class Staff extends User{
-    public void addBook(String userA){
+public class Staff implements IFindchecked {
+
+    private String userName;
+
+    public Staff() {
+
     }
+
+    public Staff(String userName) {
+        this.userName = userName;
+    }
+
     @Override
-    public List<bean.Book> findChecked(String user1, String user2) {//IDE產生的範例實作
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public List<Book> findChecked(String userA) {//員工查看借閱人借了哪些書
+        throw new UnsupportedOperationException("the Staff");
     }
-    
+
 }
