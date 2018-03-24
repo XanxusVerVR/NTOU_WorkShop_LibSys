@@ -12,8 +12,8 @@ public class Main {
         
         
         
-        Borrower userB = new Borrower("userB");
-        userB.findChecked("userA");
+        Borrower b = new Borrower("userB");
+        b.findChecked("userA");
     }
     
 }

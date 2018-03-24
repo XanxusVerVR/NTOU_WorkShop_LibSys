@@ -1,8 +1,4 @@
 package operation;
-
-import bean.Book;
-import java.util.List;
-
 /*
 範例輸入
 UserA findChecked UserB
@@ -13,7 +9,6 @@ ID: 1 Author: AuthorB Subject: SubjectB
 Borrower can not find books checked out by other users
  */
 public interface IFindchecked {
-//    public abstract void findChecked(String userName);
-    public abstract List<Book> findChecked(String userName);
+    public abstract void findChecked(String userName);
     
 }
