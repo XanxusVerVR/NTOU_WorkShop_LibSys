@@ -32,18 +32,19 @@ public class Staff implements IFindchecked {
         } catch (LibException e) {
             e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
         }
-        for (int i = 0; i < bookNumberList.size(); i++) {
-            if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
-                System.out.println("Can not check out since the book is checked out");
-                break;    
-            } 
-            else {
-                book = LibraryRepository.findBookById(bookNumberList.get(i));
-                book.setBookId(bookNumberList.get(i));
-                book.setBorrower(user);
-                LibraryRepository.checkoutBook(book);
+        if(!user.equals(this.userName)){//判斷管理員借書給自己，如果true就不做事、false就借書
+            for (int i = 0; i < bookNumberList.size(); i++) {
+                if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
+                    System.out.println("Can not check out since the book is checked out");
+                }
+                else {
+                    book = LibraryRepository.findBookById(bookNumberList.get(i));
+                    book.setBorrower(user);
+                    LibraryRepository.checkoutBook(book);
+                }
             }
         }
+        
     }
 
     public void theReturnBook(int bookId) {//還書
@@ -81,8 +82,13 @@ public class Staff implements IFindchecked {
     @Override
     public void findChecked(String userA) {//員工查看借閱人借了哪些書
         bookList = LibraryRepository.findBookByBorrower(userA);
-        for (int i = 0; i < bookList.size(); i++) {
-            System.out.println(showFormatResult(i));
+        try {
+            for (int i = 0; i < bookList.size(); i++) {
+                System.out.println(showFormatResult(i));
+            }
+        }
+        catch(NullPointerException e){
+        
         }
     }
 
