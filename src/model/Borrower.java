@@ -6,27 +6,40 @@ import java.util.List;
 import operation.IFindchecked;
 import operation.LibException;
 
-public class Borrower implements IFindchecked {
+public class Borrower extends User implements IFindchecked {
 
     private List<Book> bookList = new ArrayList<Book>();
     private String userName;//這個借閱人的名字
     private int predefinedBorrowBookNumber;//他最多能借的書的數量
 
     public Borrower(String userName, int predefinedBorrowBookNumber) {
-        this.userName = userName;
+        super(userName);
         this.predefinedBorrowBookNumber = predefinedBorrowBookNumber;
     }
 
-    public void addBook() {
+    @Override
+    public void addBook(Book book) {
         System.out.println("Borrower can not add book");
     }
 
-    public void removeBook() {
+    @Override
+    public void removeBook(int bookId) {
         System.out.println("Borrower can not remove book");
     }
 
-    public void checkout() {
+    @Override
+    public void checkout(String user, ArrayList<Integer> bookNumberList, int theBorrowerPredefinedBorrowBookNumber) {
         System.out.println("Borrower can not check out the books");
+    }
+
+    @Override
+    public void theReturnBook(int bookId) {
+        System.out.println("Borrower can not return book");
+    }
+
+    @Override
+    public void findBorrower(int bookId) {
+        System.out.println("Borrower can not find borrower");
     }
 
     @Override
@@ -41,49 +54,6 @@ public class Borrower implements IFindchecked {
         }
     }
 
-    public void listAuthor(String authorName) {
-        bookList = LibraryRepository.findBookByAuthor(authorName);
-        try {
-            for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(i));
-            }
-        } catch (NullPointerException e) {//如果為空就不動作
-
-        }
-    }
-
-    public void listSubject(String subjectName) {
-        bookList = LibraryRepository.findBookBySubject(subjectName);
-        try {
-
-            for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(i));
-            }
-        } catch (NullPointerException e) {//如果為空就不動作
-
-        }
-    }
-
-    public void theReturnBook() {//還書
-        System.out.println("Borrower can not return book");
-    }
-
-    public void findBorrower() {//查書被誰借走，借閱人不能使用此功能
-        System.out.println("Borrower can not find borrower");
-    }
-
-    public String showFormatResult(int i) {
-        return "ID: " + bookList.get(i).getBookId() + " Author: " + bookList.get(i).getAuthor() + " Subject: " + bookList.get(i).getSubject() + "";
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public int getPredefinedBorrowBookNumber() {
         return predefinedBorrowBookNumber;
     }
@@ -91,4 +61,5 @@ public class Borrower implements IFindchecked {
     public void setPredefinedBorrowBookNumber(int predefinedBorrowBookNumber) {
         this.predefinedBorrowBookNumber = predefinedBorrowBookNumber;
     }
+
 }
