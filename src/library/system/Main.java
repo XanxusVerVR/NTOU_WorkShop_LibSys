@@ -35,19 +35,23 @@ public class Main {
         book2.setIsCheck(false);
         s.addBook(book2);
         
-        s.listAuthor("戴碩宏");
+        s.listAuthor("馬上斌");
         s.removeBook(1);
         
-//        s.listAuthor("馬上斌");
+        s.listAuthor("馬上斌");//沒印出 OK!
+        s.listAuthor("戴碩宏");
         s.listAuthor("郭忠義");
         System.out.println("----------");
-        
+//        
         checkoutBookNumber = new ArrayList<Integer>(); 
         checkoutBookNumber.add(0);
         checkoutBookNumber.add(2);
-        s.checkout(b.getUserName(), checkoutBookNumber, b.getPredefinedBorrowBookNumber());
-        s.theReturnBook(0);
-        s.findChecked(b.getUserName());
+        s.checkout(b.getUserName(), checkoutBookNumber, b.getPredefinedBorrowBookNumber());//bug 可能是這裡出問題
+        s.findChecked("userB");//bug，應該要有兩本書
+        
+        
+//        s.theReturnBook(0);
+//        s.findChecked(b.getUserName());
         
 //        s.findChecked("userB");
 //        

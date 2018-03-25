@@ -7,7 +7,6 @@ import java.util.List;
 public class LibraryRepository {
 
     private static List<Book> bookList = new ArrayList<Book>();
-    ;
     private static int currentId;
 
     //如果false代表lib已存在相同subject

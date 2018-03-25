@@ -26,32 +26,29 @@ public class Staff implements IFindchecked {
         LibraryRepository.romoveBookByList(book);
     }
 
-    public void checkout(String user, ArrayList<Integer> bookNumberList,int theBorrowerPredefinedBorrowBookNumber) {//員工把書借給借閱人
-        try{
-            checkLimitationNumber(bookNumberList.size(),theBorrowerPredefinedBorrowBookNumber);//確認要借給借閱人的書數量低於上限
-        }
-        catch(LibException e){
+    public void checkout(String user, ArrayList<Integer> bookNumberList, int theBorrowerPredefinedBorrowBookNumber) {//員工把書借給借閱人
+        try {
+            checkLimitationNumber(bookNumberList.size(), theBorrowerPredefinedBorrowBookNumber);//確認要借給借閱人的書數量低於上限
+        } catch (LibException e) {
             e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
         }
         for (int i = 0; i < bookNumberList.size(); i++) {
-            if(LibraryRepository.isCheckedOut(bookNumberList.get(i))){
+            if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
                 System.out.println("Can not check out since the book is checked out");
                 break;
-            }
-            else{
+            } 
+            else {
                 book = LibraryRepository.findBookById(bookNumberList.get(i));
+//                book.setBookId(bookNumberList.get(i));
                 book.setBorrower(user);
                 book.setIsCheck(true);
                 LibraryRepository.checkoutBook(book);
             }
         }
     }
-    
-    
-    
 
     public void theReturnBook(int bookId) {//還書
-        if(LibraryRepository.isCheckedOut(bookId)){
+        if (LibraryRepository.isCheckedOut(bookId)) {
             System.out.println("Can not return since the book isn't checked out");
         }
         book = new Book();
@@ -61,15 +58,24 @@ public class Staff implements IFindchecked {
 
     public void listAuthor(String authorName) {
         bookList = LibraryRepository.findBookByAuthor(authorName);
-        for (int i = 0; i < bookList.size(); i++) {
-            System.out.println(showFormatResult(i));
+        try {
+            for (int i = 0; i < bookList.size(); i++) {
+                System.out.println(showFormatResult(i));
+            }
+        } catch (NullPointerException e) {//如果為空就不動作
+
         }
     }
 
     public void listSubject(String subjectName) {
         bookList = LibraryRepository.findBookBySubject(subjectName);
-        for (int i = 0; i < bookList.size(); i++) {
-            System.out.println(showFormatResult(i));
+        try {
+
+            for (int i = 0; i < bookList.size(); i++) {
+                System.out.println(showFormatResult(i));
+            }
+        } catch (NullPointerException e) {//如果為空就不動作
+
         }
     }
 
@@ -80,14 +86,13 @@ public class Staff implements IFindchecked {
             System.out.println(showFormatResult(i));
         }
     }
-    
-    public void checkLimitationNumber(int bookNumberListSize,int theBorrowerPredefinedBorrowBookNumber) throws LibException{
-        if(bookNumberListSize > theBorrowerPredefinedBorrowBookNumber){
+
+    public void checkLimitationNumber(int bookNumberListSize, int theBorrowerPredefinedBorrowBookNumber) throws LibException {
+        if (bookNumberListSize > theBorrowerPredefinedBorrowBookNumber) {
             throw new LibException();
         }
     }
-    
-    
+
     public void findBorrower(int bookId) {
         String checkoutUserB = LibraryRepository.findBorrower(bookId);
         System.out.println(checkoutUserB);
