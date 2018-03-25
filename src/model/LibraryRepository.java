@@ -7,6 +7,7 @@ import java.util.List;
 public class LibraryRepository {
 
     private static List<Book> bookList = new ArrayList<Book>();
+    ;
     private static int currentId;
 
     //如果false代表lib已存在相同subject
@@ -17,7 +18,7 @@ public class LibraryRepository {
             existbook = existBook(book.getSubject());
         }
 
-        if (!existbook) {
+        if (!existbook && (book.getSubject() != null) && (book.getAuthor() != null)) {
             book.setBookId(currentId++);
             bookList.add(book);
             res = true;
@@ -31,6 +32,7 @@ public class LibraryRepository {
         boolean res = false;
         if (existbook) {
             bookList.remove(book);
+            res = true;
         }
         return res;
     }
@@ -55,8 +57,9 @@ public class LibraryRepository {
         int bookid = book.getBookId();
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getBookId() == bookid) {
-                if (!bookList.get(i).getIsCheck()) {
+                if (bookList.get(i).getIsCheck()) {
                     bookList.get(i).setIsCheck(false);
+                    bookList.get(i).setBorrower("");
                     res = true;
                 }
             }
@@ -76,9 +79,10 @@ public class LibraryRepository {
 
     //如果回傳null則代表不存在該作者
     public static List<Book> findBookByAuthor(String author) {
-        List<Book> list = new ArrayList<Book>();
+        List<Book> list = null;
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getAuthor() == author) {
+                list = new ArrayList<Book>();
                 list.add(bookList.get(i));
             }
         }
@@ -86,9 +90,10 @@ public class LibraryRepository {
     }
 
     public static List<Book> findBookBySubject(String subject) {
-        List<Book> list = new ArrayList<Book>();
+        List<Book> list = null;
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getSubject() == subject) {
+                list = new ArrayList<Book>();
                 list.add(bookList.get(i));
             }
         }
@@ -96,9 +101,10 @@ public class LibraryRepository {
     }
 
     public static List<Book> findBookByBorrower(String borrower) {
-        List<Book> list = new ArrayList<Book>();
+        List<Book> list = null;
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getBorrower() == borrower) {
+                list = new ArrayList<Book>();
                 list.add(bookList.get(i));
             }
         }
@@ -108,26 +114,19 @@ public class LibraryRepository {
     //null代表沒有被借出
     public static String findBorrower(int id) {
         Book book = null;
+        String res = null;
         if (isCheckedOut(id)) {
             book = findBookById(id);
+            res = book.getBorrower();
         }
-        return book.getBorrower();
+        return res;
     }
 
     public static int getCurrentId() {
         return currentId;
     }
 
-    private static boolean existBook(String subject) {
-        boolean res = false;
-        for (int i = 0; i < bookList.size(); i++) {
-            if (bookList.get(i).getSubject() == subject) {
-                res = true;
-            }
-        }
-        return res;
-    }
-
+    //if checked out then trun
     public static boolean isCheckedOut(int id) {
         boolean res = false;
         for (int i = 0; i < bookList.size(); i++) {
@@ -135,6 +134,16 @@ public class LibraryRepository {
                 if (bookList.get(i).getIsCheck()) {
                     res = true;
                 }
+            }
+        }
+        return res;
+    }
+
+    private static boolean existBook(String subject) {
+        boolean res = false;
+        for (int i = 0; i < bookList.size(); i++) {
+            if (bookList.get(i).getSubject() == subject) {
+                res = true;
             }
         }
         return res;

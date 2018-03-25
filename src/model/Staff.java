@@ -45,13 +45,15 @@ public class Staff implements IFindchecked {
                 LibraryRepository.checkoutBook(book);
             }
         }
-        
     }
     
     
     
 
-    public void theReturnBook(int bookId) {
+    public void theReturnBook(int bookId) {//還書
+        if(LibraryRepository.isCheckedOut(bookId)){
+            System.out.println("Can not return since the book isn't checked out");
+        }
         book = new Book();
         book.setBookId(bookId);
         LibraryRepository.returnBook(book);

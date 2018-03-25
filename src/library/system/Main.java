@@ -38,16 +38,16 @@ public class Main {
         s.listAuthor("戴碩宏");
         s.removeBook(1);
         
-        s.listAuthor("馬上斌");
+//        s.listAuthor("馬上斌");
         s.listAuthor("郭忠義");
-        
+        System.out.println("----------");
         
         checkoutBookNumber = new ArrayList<Integer>(); 
         checkoutBookNumber.add(0);
         checkoutBookNumber.add(2);
-        s.checkout(b.getUserName(), checkoutBookNumber, b.getPredefinedBorrowBookNumber());//有問題
-        s.theReturnBook(0);//有問題
-        
+        s.checkout(b.getUserName(), checkoutBookNumber, b.getPredefinedBorrowBookNumber());
+        s.theReturnBook(0);
+        s.findChecked(b.getUserName());
         
 //        s.findChecked("userB");
 //        
