@@ -8,7 +8,6 @@ import operation.LibException;
 
 public class Borrower implements IFindchecked {
 
-    Book book;
     private List<Book> bookList = new ArrayList<Book>();
     private String userName;//這個借閱人的名字
     private int predefinedBorrowBookNumber;//他最多能借的書的數量
@@ -31,7 +30,7 @@ public class Borrower implements IFindchecked {
     }
 
     @Override
-    public void findChecked(String userB) {//借閱人查自己借了哪些書，但借閱人不能查別的借閱人
+    public void findChecked(String userB) {//userB為被查的人，借閱人不能查別人，只能查自己
         if (!userB.equals(this.userName)) {//如果借閱人查別人
             System.out.println("Borrower can not find books checked out by other users");
         } else {//借閱人查自己
@@ -69,12 +68,11 @@ public class Borrower implements IFindchecked {
         System.out.println("Borrower can not return book");
     }
 
-    public void findBorrower() {
+    public void findBorrower() {//查書被誰借走，借閱人不能使用此功能
         System.out.println("Borrower can not find borrower");
     }
 
     public String showFormatResult(int i) {
-
         return "ID: " + bookList.get(i).getBookId() + " Author: " + bookList.get(i).getAuthor() + " Subject: " + bookList.get(i).getSubject() + "";
     }
 
@@ -92,10 +90,5 @@ public class Borrower implements IFindchecked {
 
     public void setPredefinedBorrowBookNumber(int predefinedBorrowBookNumber) {
         this.predefinedBorrowBookNumber = predefinedBorrowBookNumber;
-    }
-
-    public Object testClassName() {
-        Object a = userName.getClass();
-        return a;
     }
 }

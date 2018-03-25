@@ -9,7 +9,7 @@ import operation.LibException;
 
 public class Staff implements IFindchecked {
 
-    Book book;
+    private Book book;
     private List<Book> bookList = new ArrayList<Book>();
     private String userName;
 
