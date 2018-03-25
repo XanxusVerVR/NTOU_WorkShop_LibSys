@@ -70,23 +70,23 @@ public class Main {
 
         checkoutBookNumber = new ArrayList<Integer>();
         checkoutBookNumber.add(0);
-//        checkoutBookNumber.add(2);
+        checkoutBookNumber.add(2);
         s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
         s.findChecked(b);//OK，有兩本書
         System.out.println("---------");
         
-//        System.out.println("歸還：");
-//        s.theReturnBook(0);
-//        s.findChecked(b);//OK!!只有一本書，且是編號2、郭忠義
-//        System.out.println("----------");
+        System.out.println("歸還：");
+        s.theReturnBook(0);
+        s.findChecked(b);//OK!!只有一本書，且是編號2、馬英九
+        System.out.println("----------");
 //
-//        s.listAuthor("戴碩宏");//測試以作者找書。OK!!
-//        System.out.println("----------");
-//        s.listSubject("Lua");//測試以主題找書。OK!!
-//        System.out.println("----------");
-//        s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
-//        System.out.println("----------");
-//        s.findBorrower(2);//測試 查詢此編號的書被誰借走。
+        s.listAuthor("戴碩宏");//測試以作者找書。OK!!
+        System.out.println("----------");
+        s.listSubject("心理勵志");//測試以主題找書。OK!!
+        System.out.println("----------");
+        s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
+        System.out.println("----------");
+        s.findBorrower(2);//測試 查詢此編號的書被誰借走。
     }
 
 //    public static void getBookByCommand() {
