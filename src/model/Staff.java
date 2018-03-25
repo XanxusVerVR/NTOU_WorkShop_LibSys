@@ -3,6 +3,7 @@ package model;
 import bean.Book;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import operation.IFindchecked;
 import operation.LibException;
 
@@ -33,16 +34,14 @@ public class Staff implements IFindchecked {
             e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
         }
         for (int i = 0; i < bookNumberList.size(); i++) {
-            if(!LibraryRepository.isCheckedOut(i)){
+            if(LibraryRepository.isCheckedOut(bookNumberList.get(i))){
                 System.out.println("Can not check out since the book is checked out");
                 break;
             }
             else{
                 book = LibraryRepository.findBookById(bookNumberList.get(i));
-//                book = new Book();
                 book.setBorrower(user);
-                
-//                book.setBookId(bookNumberList.get(i));
+                book.setIsCheck(true);
                 LibraryRepository.checkoutBook(book);
             }
         }
