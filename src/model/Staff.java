@@ -21,32 +21,42 @@ public class Staff extends User {
 
     @Override
     public void removeBook(int bookId) {
-        Book book;
-        book = LibraryRepository.findBookById(bookId);
-        LibraryRepository.romoveBookByList(book);
+        Book book = LibraryRepository.findBookById(bookId);
+        if (book == null) {//如果沒有這本書存在，就不做動作。
+        } else if(book.getIsCheck()){//如果這本書被借走了，也不做動作
+        }
+        else{
+            LibraryRepository.romoveBookByList(book);
+        }
     }
 
     @Override
     public void checkout(User u, ArrayList<Integer> bookNumberList) {//員工把書借給借閱人
-        Book book;
-        Borrower newB = (Borrower) u;
-        try {
-            checkLimitationNumber(bookNumberList.size(), newB.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
-        } catch (LibException e) {
-            e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
+        boolean isStaff = false;
+        if (super.getClass().getName().equals(u.getClass().getName())) {//判斷借與被借的人是不是都是員工
+            isStaff = true;
         }
-        if (!newB.getUserName().equals(this.userName)) {//判斷管理員借書給自己，如果true就不做事、false就借書
+        if (!isStaff) {
+            Book book;
+            Borrower wantCheckoutPerson = (Borrower) u;//wantCheckoutPerson為想要借書的人
+            try {
+                checkLimitationNumber(bookNumberList.size(), wantCheckoutPerson.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
+            } catch (LibException e) {
+                e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
+            }
             for (int i = 0; i < bookNumberList.size(); i++) {
                 if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
                     System.out.println("Can not check out since the book is checked out");
                 } else {
-                    book = LibraryRepository.findBookById(bookNumberList.get(i));
-                    book.setBorrower(newB.getUserName());
-                    LibraryRepository.checkoutBook(book);
+                    try {
+                        book = LibraryRepository.findBookById(bookNumberList.get(i));
+                        book.setBorrower(wantCheckoutPerson.getUserName());
+                        LibraryRepository.checkoutBook(book);
+                    } catch (NullPointerException e) {//如果圖書館裡根本沒有這個書的ID，根本沒此書的存在就不動作
+                    }
                 }
             }
         }
-
     }
 
     @Override
@@ -61,16 +71,22 @@ public class Staff extends User {
     }
 
     @Override
-    public void findChecked(User userA) {//員工查看借閱人借了哪些書
-        List<Book> bookList;
-        Borrower newA = (Borrower) userA;//userA為借閱人
-        bookList = LibraryRepository.findBookByBorrower(newA.getUserName());
-        try {
-            for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(bookList.get(i)));
-            }
-        } catch (NullPointerException e) {
+    public void findChecked(User u) {//員工查看借閱人借了哪些書
+        boolean isStaff = false;
+        if (super.getClass().getName().equals(u.getClass().getName())) {//如果員工查員工
+            isStaff = true;
+        }
+        if (!isStaff) {//如果是員工查員工，就不動作
+            List<Book> bookList;
+            Borrower queryPersoned = (Borrower) u;//queryPersoned為被查的借閱人
+            bookList = LibraryRepository.findBookByBorrower(queryPersoned.getUserName());
+            try {
+                for (int i = 0; i < bookList.size(); i++) {
+                    System.out.println(showFormatResult(bookList.get(i)));
+                }
+            } catch (NullPointerException e) {//判斷借閱人有沒有借書，沒有借書就不動作
 
+            }
         }
     }
 

@@ -62,40 +62,45 @@ public class Main {
         s.addBook(book3);
 //
         s.listAuthor("馬尚彬");
-        s.removeBook(1);
-//
-        s.listAuthor("馬尚彬");//沒印出 OK!
+        System.out.println("-----remove-----");
+        s.removeBook(0);
+        System.out.println("----------");
         s.listAuthor("戴碩宏");
-        s.listAuthor("郭忠義");
+        s.listAuthor("馬尚彬");
         s.listAuthor("馬英九");
-        System.out.println("----------");
+        s.listAuthor("郭忠義");
+//        System.out.println("----------");
 
-        checkoutBookNumber = new ArrayList<Integer>();
-        checkoutBookNumber.add(0);
-        checkoutBookNumber.add(2);
-        s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
-        s.findChecked(b);//OK，有兩本書
-        System.out.println("---------");
+//        checkoutBookNumber = new ArrayList<Integer>();
+//        checkoutBookNumber.add(0);
+//        checkoutBookNumber.add(2);
+//        s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
+////        s.checkout(s, checkoutBookNumber);
+//        s.findChecked(b);//OK，有兩本書
+//        System.out.println("---------");
+//        
+//        System.out.println("歸還：");
+//        s.theReturnBook(0);
+//        s.findChecked(b);//OK!!只有一本書，且是編號2、馬英九
+//        System.out.println("----------");
+////
+//        s.listAuthor("戴碩宏");//測試以作者找書。OK!!
+//        System.out.println("----------");
+//        s.listSubject("心理勵志");//測試以主題找書。OK!!
+//        System.out.println("----------");
+//        s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
+//        System.out.println("----------");
+//        s.findBorrower(2);//測試 查詢此編號的書被誰借走。
+//        
+//        
+//        System.out.println("------");
+//        b.findChecked(b);//測試通過，可以查自己
+//        b.findChecked(b2);//測試通過，不可查別人
+//        System.out.println("------");
+//        b.findBorrower(0);//測試通過，借閱人不能操作此功能
+//        System.out.println("------");
+//        s.findChecked(s);
         
-        System.out.println("歸還：");
-        s.theReturnBook(0);
-        s.findChecked(b);//OK!!只有一本書，且是編號2、馬英九
-        System.out.println("----------");
-//
-        s.listAuthor("戴碩宏");//測試以作者找書。OK!!
-        System.out.println("----------");
-        s.listSubject("心理勵志");//測試以主題找書。OK!!
-        System.out.println("----------");
-        s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
-        System.out.println("----------");
-        s.findBorrower(2);//測試 查詢此編號的書被誰借走。
-        
-        
-        System.out.println("------");
-        b.findChecked(b);//測試通過，可以查自己
-        b.findChecked(b2);//測試通過，不可查別人
-        System.out.println("------");
-        b.findBorrower(0);//測試通過，借閱人不能操作此功能
         
     }
 
