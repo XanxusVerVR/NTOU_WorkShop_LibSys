@@ -7,7 +7,6 @@ import java.util.List;
 public abstract class User {
 
     private String userName;
-    private List<Book> bookList = new ArrayList<Book>();
 
     public User(String userName) {
         this.userName = userName;
@@ -26,10 +25,11 @@ public abstract class User {
     public abstract void findChecked(User thisUser);
 
     public void listAuthor(String authorName) {
+        List<Book> bookList;
         bookList = LibraryRepository.findBookByAuthor(authorName);
         try {
             for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(i));
+                System.out.println(showFormatResult(bookList.get(i)));
             }
         } catch (NullPointerException e) {//如果為空就不動作
 
@@ -37,19 +37,20 @@ public abstract class User {
     }
 
     public void listSubject(String subjectName) {
+        List<Book> bookList;
         bookList = LibraryRepository.findBookBySubject(subjectName);
         try {
 
             for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(i));
+                System.out.println(showFormatResult(bookList.get(i)));
             }
         } catch (NullPointerException e) {//如果為空就不動作
 
         }
     }
 
-    public String showFormatResult(int i) {
-        return "ID: " + bookList.get(i).getBookId() + " Author: " + bookList.get(i).getAuthor() + " Subject: " + bookList.get(i).getSubject() + "";
+    public String showFormatResult(Book book) {
+        return "ID: " + book.getBookId() + " Author: " + book.getAuthor() + " Subject: " + book.getSubject() + "";
     }
 
     public String getUserName() {

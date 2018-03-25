@@ -8,8 +8,8 @@ import operation.LibException;
 
 public class Staff extends User {
 
-    private Book book;
-    private List<Book> bookList = new ArrayList<Book>();
+//    private Book book;
+//    private List<Book> bookList = new ArrayList<Book>();
     private String userName;
 
     public Staff(String userName) {
@@ -23,12 +23,14 @@ public class Staff extends User {
 
     @Override
     public void removeBook(int bookId) {
+        Book book;
         book = LibraryRepository.findBookById(bookId);
         LibraryRepository.romoveBookByList(book);
     }
 
     @Override
     public void checkout(User u,ArrayList<Integer> bookNumberList ) {//員工把書借給借閱人
+        Book book;
         Borrower newB = (Borrower) u;
         try {
             checkLimitationNumber(bookNumberList.size(), newB.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
@@ -51,6 +53,7 @@ public class Staff extends User {
 
     @Override
     public void theReturnBook(int bookId) {//還書
+        Book book;
         if (!LibraryRepository.isCheckedOut(bookId)) {//不能歸還沒有被借走的書，書還在圖書館裡
             System.out.println("Can not return since the book isn't checked out");
         }
@@ -61,11 +64,13 @@ public class Staff extends User {
 
     @Override
     public void findChecked(User userA) {//員工查看借閱人借了哪些書
+        List<Book> bookList;
         Borrower newA = (Borrower) userA;//userA為借閱人
         bookList = LibraryRepository.findBookByBorrower(newA.getUserName());
         try {
             for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(i));
+                
+                System.out.println(showFormatResult(bookList.get(i)));
             }
         } catch (NullPointerException e) {
 

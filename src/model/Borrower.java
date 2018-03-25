@@ -50,7 +50,7 @@ public class Borrower extends User {
         } else {//借閱人查自己
             bookList = LibraryRepository.findBookByBorrower(this.userName);
             for (int i = 0; i < bookList.size(); i++) {
-                System.out.println(showFormatResult(i));
+                System.out.println(showFormatResult(bookList.get(i)));
             }
         }
     }

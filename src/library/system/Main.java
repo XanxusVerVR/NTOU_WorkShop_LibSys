@@ -70,8 +70,8 @@ public class Main {
 
         checkoutBookNumber = new ArrayList<Integer>();
         checkoutBookNumber.add(0);
-        checkoutBookNumber.add(2);
-        s.checkout(b.getUserName(), checkoutBookNumber, b);//OK!有借出兩本書
+//        checkoutBookNumber.add(2);
+        s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
         s.findChecked(b);//OK，有兩本書
         System.out.println("---------");
         
