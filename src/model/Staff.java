@@ -35,20 +35,19 @@ public class Staff implements IFindchecked {
         for (int i = 0; i < bookNumberList.size(); i++) {
             if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
                 System.out.println("Can not check out since the book is checked out");
-                break;
+                break;    
             } 
             else {
                 book = LibraryRepository.findBookById(bookNumberList.get(i));
-//                book.setBookId(bookNumberList.get(i));
+                book.setBookId(bookNumberList.get(i));
                 book.setBorrower(user);
-                book.setIsCheck(true);
                 LibraryRepository.checkoutBook(book);
             }
         }
     }
 
     public void theReturnBook(int bookId) {//還書
-        if (LibraryRepository.isCheckedOut(bookId)) {
+        if (!LibraryRepository.isCheckedOut(bookId)) {//不能歸還沒有被借走的書，書還在圖書館裡
             System.out.println("Can not return since the book isn't checked out");
         }
         book = new Book();
@@ -95,7 +94,7 @@ public class Staff implements IFindchecked {
 
     public void findBorrower(int bookId) {
         String checkoutUserB = LibraryRepository.findBorrower(bookId);
-        System.out.println(checkoutUserB);
+        System.out.println("User: "+checkoutUserB);
     }
 
     public String showFormatResult(int i) {

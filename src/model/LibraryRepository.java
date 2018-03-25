@@ -78,34 +78,41 @@ public class LibraryRepository {
 
     //如果回傳null則代表不存在該作者
     public static List<Book> findBookByAuthor(String author) {
-        List<Book> list = null;
+        List<Book> list = new ArrayList<Book>();
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getAuthor() == author) {
-                list = new ArrayList<Book>();
                 list.add(bookList.get(i));
             }
+        }
+        if (list.isEmpty()) {
+            return null;
         }
         return list;
     }
 
     public static List<Book> findBookBySubject(String subject) {
-        List<Book> list = null;
+        List<Book> list = new ArrayList<Book>();
         for (int i = 0; i < bookList.size(); i++) {
             if (bookList.get(i).getSubject() == subject) {
-                list = new ArrayList<Book>();
                 list.add(bookList.get(i));
             }
+        }
+        if (list.isEmpty()) {
+            return null;
         }
         return list;
     }
 
     public static List<Book> findBookByBorrower(String borrower) {
-        List<Book> list = null;
+        List<Book> list = new ArrayList<Book>();
         for (int i = 0; i < bookList.size(); i++) {
+//            System.out.println(bookList.get(i).getBorrower() + "," + borrower);
             if (bookList.get(i).getBorrower() == borrower) {
-                list = new ArrayList<Book>();
                 list.add(bookList.get(i));
             }
+        }
+        if (list.isEmpty()) {
+            return null;
         }
         return list;
     }

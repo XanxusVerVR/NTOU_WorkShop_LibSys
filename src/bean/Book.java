@@ -1,11 +1,15 @@
 package bean;
 
 public class Book {
-private int bookId;
+    private int bookId;
     private String author;
     private String subject;
     private boolean isCheck;
     private String borrower;
+
+    public Book(){
+        isCheck = false;
+    }
 
     public void setBookId(int id){
         this.bookId = id;

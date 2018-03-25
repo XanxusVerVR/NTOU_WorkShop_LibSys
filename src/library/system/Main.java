@@ -16,13 +16,11 @@ public class Main {
         Book book0 = new Book();
         book0.setAuthor("戴碩宏");
         book0.setSubject("Lua");
-        book0.setIsCheck(false);
         newBook.add(book0);
         
         Book book1 = new Book();
         book1.setAuthor("馬上斌");
         book1.setSubject("Java");
-        book1.setIsCheck(false);
         newBook.add(book1);
         
         for(int i = 0 ;i<newBook.size() ; i++){
@@ -32,7 +30,6 @@ public class Main {
         Book book2 = new Book();
         book2.setAuthor("郭忠義");
         book2.setSubject("python");
-        book2.setIsCheck(false);
         s.addBook(book2);
         
         s.listAuthor("馬上斌");
@@ -46,23 +43,21 @@ public class Main {
         checkoutBookNumber = new ArrayList<Integer>(); 
         checkoutBookNumber.add(0);
         checkoutBookNumber.add(2);
-        s.checkout(b.getUserName(), checkoutBookNumber, b.getPredefinedBorrowBookNumber());//bug 可能是這裡出問題
-        s.findChecked("userB");//bug，應該要有兩本書
+        s.checkout(b.getUserName(), checkoutBookNumber, b.getPredefinedBorrowBookNumber());//OK!有借出兩本書
+        s.findChecked("userB");//OK，有兩本書
+        System.out.println("---------");
         
+        s.theReturnBook(0);
+        s.findChecked("userB");//OK!!只有一本書，且是編號2、郭忠義
+        System.out.println("----------");
         
-//        s.theReturnBook(0);
-//        s.findChecked(b.getUserName());
-        
-//        s.findChecked("userB");
-//        
-//        
-//        
-//        System.out.println(b.testClassName());
-//        b.findChecked("userA");
-//        ArrayList<Integer> bookNumber = new ArrayList<Integer>();//存放要借哪幾本書
-//        bookNumber.add(1);
-//        bookNumber.add(3);
-//        s.checkout(b.getUserName(),bookNumber,b.getPredefinedBorrowBookNumber());
+        s.listAuthor("戴碩宏");//測試以作者找書。OK!!
+        System.out.println("----------");
+        s.listSubject("Lua");//測試以主題找書。OK!!
+        System.out.println("----------");
+        s.findChecked(b.getUserName());//測試 查詢此借閱人借了哪些書。OK!!
+        System.out.println("----------");
+        s.findBorrower(2);//測試 查詢此編號的書被誰借走。
     }
     
 }
