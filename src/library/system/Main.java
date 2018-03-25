@@ -69,18 +69,17 @@ public class Main {
         s.listAuthor("馬尚彬");
         s.listAuthor("馬英九");
         s.listAuthor("郭忠義");
-//        System.out.println("----------");
+        System.out.println("----------");
 
-//        checkoutBookNumber = new ArrayList<Integer>();
-//        checkoutBookNumber.add(0);
-//        checkoutBookNumber.add(2);
-//        s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
-////        s.checkout(s, checkoutBookNumber);
-//        s.findChecked(b);//OK，有兩本書
-//        System.out.println("---------");
+        checkoutBookNumber = new ArrayList<Integer>();
+        checkoutBookNumber.add(1);
+        checkoutBookNumber.add(3);
+        s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
+        s.findChecked(b);//OK，有兩本書
+        System.out.println("---------");
 //        
-//        System.out.println("歸還：");
-//        s.theReturnBook(0);
+        System.out.println("歸還：");
+        s.theReturnBook(1);
 //        s.findChecked(b);//OK!!只有一本書，且是編號2、馬英九
 //        System.out.println("----------");
 ////

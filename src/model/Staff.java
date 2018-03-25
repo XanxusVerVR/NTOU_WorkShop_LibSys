@@ -61,13 +61,19 @@ public class Staff extends User {
 
     @Override
     public void theReturnBook(int bookId) {//還書
-        Book book;
-        if (!LibraryRepository.isCheckedOut(bookId)) {//不能歸還沒有被借走的書，書還在圖書館裡
+        Book book = LibraryRepository.findBookById(bookId);
+        if (book==null) {//如果這本書不存在，就不做動作
+            System.out.println("不存在此書");
+        }
+        else if(!LibraryRepository.isCheckedOut(bookId)){//不能歸還沒有被借走的書，書還在圖書館裡
             System.out.println("Can not return since the book isn't checked out");
         }
-        book = new Book();
-        book.setBookId(bookId);
-        LibraryRepository.returnBook(book);
+        else{
+            book = new Book();
+            book.setBookId(bookId);
+            LibraryRepository.returnBook(book);
+        }
+        
     }
 
     @Override
