@@ -34,6 +34,7 @@ public class Main {
 
         User s = new Staff("userA");
         User b = new Borrower("userB",2);//借閱人名字叫userB,最多能借2本
+        User b2 = new Borrower("userC",3);//借閱人名字叫userB,最多能借2本
         
         Book book0 = new Book();
         book0.setAuthor("戴碩宏");
@@ -89,7 +90,12 @@ public class Main {
         System.out.println("----------");
         s.findBorrower(2);//測試 查詢此編號的書被誰借走。
         
-        b.findChecked(b);//借閱人查自己，測試OK!!
+        
+        System.out.println("------");
+        b.findChecked(b);//測試通過，可以查自己
+        b.findChecked(b2);//測試通過，不可查別人
+        System.out.println("------");
+        b.findBorrower(0);//測試通過，借閱人不能操作此功能
         
     }
 

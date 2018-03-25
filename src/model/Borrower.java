@@ -40,18 +40,20 @@ public class Borrower extends User {
         System.out.println("Borrower can not find borrower");
     }
 
+    //借閱人查看自己借了哪些書，但借閱人不可查其他借閱人
     @Override
-    public void findChecked(User userB) {//userB為被查的人，借閱人不能查別人，只能查自己
+    public void findChecked(User userB) {//userB為被查的人
         List<Book> bookList;
         Borrower newB = (Borrower) userB;
         String newUserBName = newB.getUserName();
-        if (!newUserBName.equals(this.userName)) {//
-            System.out.println("Borrower can not find books checked out by other users");
-        } else {//借閱人查自己
+        if (super.getUserName().equals(newUserBName)) {//super.getUserName()為操作此方法的借閱者名字。如果此借閱者名字與被查的一樣，就查詢，表示自己查自己。
             bookList = LibraryRepository.findBookByBorrower(this.userName);
             for (int i = 0; i < bookList.size(); i++) {
                 System.out.println(showFormatResult(bookList.get(i)));
             }
+
+        } else {//如果借閱者去查其他人，就不給查。
+            System.out.println("Borrower can not find books checked out by other users");
         }
     }
 
