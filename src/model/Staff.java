@@ -8,8 +8,6 @@ import operation.LibException;
 
 public class Staff extends User {
 
-//    private Book book;
-//    private List<Book> bookList = new ArrayList<Book>();
     private String userName;
 
     public Staff(String userName) {
@@ -29,7 +27,7 @@ public class Staff extends User {
     }
 
     @Override
-    public void checkout(User u,ArrayList<Integer> bookNumberList ) {//員工把書借給借閱人
+    public void checkout(User u, ArrayList<Integer> bookNumberList) {//員工把書借給借閱人
         Book book;
         Borrower newB = (Borrower) u;
         try {
@@ -69,7 +67,6 @@ public class Staff extends User {
         bookList = LibraryRepository.findBookByBorrower(newA.getUserName());
         try {
             for (int i = 0; i < bookList.size(); i++) {
-                
                 System.out.println(showFormatResult(bookList.get(i)));
             }
         } catch (NullPointerException e) {

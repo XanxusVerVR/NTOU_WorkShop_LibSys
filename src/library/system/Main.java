@@ -38,6 +38,7 @@ public class Main {
         Book book0 = new Book();
         book0.setAuthor("戴碩宏");
         book0.setSubject("Lua");
+//        book0.setIsCheck(true);
         newBook.add(book0);
 //
         Book book1 = new Book();
@@ -87,6 +88,9 @@ public class Main {
         s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
         System.out.println("----------");
         s.findBorrower(2);//測試 查詢此編號的書被誰借走。
+        
+        b.findChecked(b);//借閱人查自己，測試OK!!
+        
     }
 
 //    public static void getBookByCommand() {

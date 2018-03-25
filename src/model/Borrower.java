@@ -7,7 +7,6 @@ import operation.LibException;
 
 public class Borrower extends User {
 
-    private List<Book> bookList = new ArrayList<Book>();
     private String userName;//這個借閱人的名字
     private int predefinedBorrowBookNumber;//他最多能借的書的數量
 
@@ -27,7 +26,7 @@ public class Borrower extends User {
     }
 
     @Override
-    public void checkout( User u,ArrayList<Integer> bookNumberList) {
+    public void checkout(User u, ArrayList<Integer> bookNumberList) {
         System.out.println("Borrower can not check out the books");
     }
 
@@ -43,9 +42,10 @@ public class Borrower extends User {
 
     @Override
     public void findChecked(User userB) {//userB為被查的人，借閱人不能查別人，只能查自己
+        List<Book> bookList;
         Borrower newB = (Borrower) userB;
         String newUserBName = newB.getUserName();
-        if (!newUserBName.equals(this.userName)) {//如果借閱人查別人
+        if (!newUserBName.equals(this.userName)) {//
             System.out.println("Borrower can not find books checked out by other users");
         } else {//借閱人查自己
             bookList = LibraryRepository.findBookByBorrower(this.userName);
