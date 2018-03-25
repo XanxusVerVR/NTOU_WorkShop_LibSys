@@ -4,10 +4,9 @@ import bean.Book;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import operation.IFindchecked;
 import operation.LibException;
 
-public class Staff extends User implements IFindchecked {
+public class Staff extends User {
 
     private Book book;
     private List<Book> bookList = new ArrayList<Book>();
@@ -29,9 +28,10 @@ public class Staff extends User implements IFindchecked {
     }
 
     @Override
-    public void checkout(String user, ArrayList<Integer> bookNumberList, int theBorrowerPredefinedBorrowBookNumber) {//員工把書借給借閱人
+    public void checkout(String user, ArrayList<Integer> bookNumberList, User u) {//員工把書借給借閱人
+        Borrower newB = (Borrower) u;
         try {
-            checkLimitationNumber(bookNumberList.size(), theBorrowerPredefinedBorrowBookNumber);//確認要借給借閱人的書數量低於上限
+            checkLimitationNumber(bookNumberList.size(), newB.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
         } catch (LibException e) {
             e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
         }
@@ -60,8 +60,9 @@ public class Staff extends User implements IFindchecked {
     }
 
     @Override
-    public void findChecked(String userA) {//員工查看借閱人借了哪些書
-        bookList = LibraryRepository.findBookByBorrower(userA);
+    public void findChecked(User userA) {//員工查看借閱人借了哪些書
+        Borrower newA = (Borrower) userA;//userA為借閱人
+        bookList = LibraryRepository.findBookByBorrower(newA.getUserName());
         try {
             for (int i = 0; i < bookList.size(); i++) {
                 System.out.println(showFormatResult(i));
@@ -81,5 +82,12 @@ public class Staff extends User implements IFindchecked {
         if (bookNumberListSize > theBorrowerPredefinedBorrowBookNumber) {
             throw new LibException();
         }
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
