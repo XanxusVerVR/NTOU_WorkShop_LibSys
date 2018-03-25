@@ -28,20 +28,20 @@ public class Staff extends User {
     }
 
     @Override
-    public void checkout(String user, ArrayList<Integer> bookNumberList, User u) {//員工把書借給借閱人
+    public void checkout(User u,ArrayList<Integer> bookNumberList ) {//員工把書借給借閱人
         Borrower newB = (Borrower) u;
         try {
             checkLimitationNumber(bookNumberList.size(), newB.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
         } catch (LibException e) {
             e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
         }
-        if (!user.equals(this.userName)) {//判斷管理員借書給自己，如果true就不做事、false就借書
+        if (!newB.getUserName().equals(this.userName)) {//判斷管理員借書給自己，如果true就不做事、false就借書
             for (int i = 0; i < bookNumberList.size(); i++) {
                 if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
                     System.out.println("Can not check out since the book is checked out");
                 } else {
                     book = LibraryRepository.findBookById(bookNumberList.get(i));
-                    book.setBorrower(user);
+                    book.setBorrower(newB.getUserName());
                     LibraryRepository.checkoutBook(book);
                 }
             }
@@ -82,12 +82,5 @@ public class Staff extends User {
         if (bookNumberListSize > theBorrowerPredefinedBorrowBookNumber) {
             throw new LibException();
         }
-    }
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 }

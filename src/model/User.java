@@ -17,7 +17,7 @@ public abstract class User {
 
     public abstract void removeBook(int bookId);
 
-    public abstract void checkout(String user, ArrayList<Integer> bookNumberList, User thisUser);
+    public abstract void checkout(User thisUser, ArrayList<Integer> bookNumberList);
 
     public abstract void theReturnBook(int bookId);
 
@@ -52,4 +52,11 @@ public abstract class User {
         return "ID: " + bookList.get(i).getBookId() + " Author: " + bookList.get(i).getAuthor() + " Subject: " + bookList.get(i).getSubject() + "";
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

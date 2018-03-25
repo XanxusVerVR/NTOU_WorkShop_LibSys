@@ -10,6 +10,7 @@ public class Borrower extends User {
     private List<Book> bookList = new ArrayList<Book>();
     private String userName;//這個借閱人的名字
     private int predefinedBorrowBookNumber;//他最多能借的書的數量
+
     public Borrower(String userName, int predefinedBorrowBookNumber) {
         super(userName);
         this.predefinedBorrowBookNumber = predefinedBorrowBookNumber;
@@ -26,7 +27,7 @@ public class Borrower extends User {
     }
 
     @Override
-    public void checkout(String user, ArrayList<Integer> bookNumberList, User u) {
+    public void checkout( User u,ArrayList<Integer> bookNumberList) {
         System.out.println("Borrower can not check out the books");
     }
 
@@ -52,14 +53,6 @@ public class Borrower extends User {
                 System.out.println(showFormatResult(i));
             }
         }
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public int getPredefinedBorrowBookNumber() {
