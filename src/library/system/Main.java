@@ -13,10 +13,12 @@ public class Main {
     static Queue<String> commandList = new LinkedList<String>();
 
     public static void main(String[] args) {
-        String path = "";
-        path = "" + InputHandler.class.getClassLoader().getResource("");
-        path = path.substring(6) + "sampleInput";
-        InputHandler inputHandler = new InputHandler(path);
+//        String path = "";
+//        path = "" + InputHandler.class.getClassLoader().getResource("");
+//        
+//        path = path.substring(6) + "sampleInput";
+//        System.out.println(path);
+        InputHandler inputHandler = new InputHandler("/Users/xanxus/Desktop/NTOU_WorkShop_LibSys/file/sampleInput");
         String content = inputHandler.getInputByFile();
 
         final String[] splittedStr = content.split("\n");
