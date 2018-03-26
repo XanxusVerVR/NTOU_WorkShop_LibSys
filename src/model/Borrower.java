@@ -46,7 +46,7 @@ public class Borrower extends User {
         Borrower queryPersoned = (Borrower) u;//queryPersoned為被查的人
         String queryPersonedName = queryPersoned.getUserName();
         if (super.getUserName().equals(queryPersonedName)) {//super.getUserName()為操作此方法的借閱者名字。如果此借閱者名字與被查的一樣，就查詢，表示自己查自己。
-            bookList = LibraryRepository.findBookByBorrower(super.getUserName());
+            bookList = LibraryRepository.findBookByBorrower(queryPersonedName);
             if (bookList == null) {
                 System.out.println("Log: " + "名為"+queryPersonedName+"的借閱人，你目前沒借書出去");
             } else {
