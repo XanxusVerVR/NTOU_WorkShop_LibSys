@@ -32,7 +32,7 @@ public abstract class User {
                 System.out.println(showFormatResult(bookList.get(i)));
             }
         } catch (NullPointerException e) {//如果為空就不動作
-
+            System.out.println("There is no book for this author");
         }
     }
 
@@ -45,7 +45,7 @@ public abstract class User {
                 System.out.println(showFormatResult(bookList.get(i)));
             }
         } catch (NullPointerException e) {//如果為空就不動作
-
+            System.out.println("There is no book for this subject");
         }
     }
 

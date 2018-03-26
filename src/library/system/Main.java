@@ -79,28 +79,26 @@ public class Main {
         s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
         s.findChecked(b);//OK，有兩本書
         System.out.println("---------");
-//        
         System.out.println("歸還：");
         s.theReturnBook(1);
         s.findChecked(b);//OK!!只有一本書，且是編號2、馬英九
         System.out.println("----------");
-//
         s.listAuthor("戴碩宏");//測試以作者找書。OK!!
         System.out.println("----------");
         s.listSubject("心理勵志");//測試以主題找書。OK!!
-        System.out.println("----------");
+        System.out.println("----s.findChecked(b)------");
         s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
-        System.out.println("----------");
-        s.findBorrower(2);//測試 查詢此編號的書被誰借走。
+        System.out.println("----s.findBorrower(2)------");
+        s.findBorrower(3);//測試 查詢此編號的書被誰借走。
         
         
-        System.out.println("------");
+        System.out.println("---b.findChecked(b)---");
         b.findChecked(b);//測試通過，可以查自己
         b.findChecked(b2);//測試通過，不可查別人
         System.out.println("------");
-        b.findBorrower(0);//測試通過，借閱人不能操作此功能
-        System.out.println("------");
-        s.findChecked(s);
+        b.findBorrower(1);//測試通過，借閱人不能操作此功能
+        System.out.println("---end---");
+        s.findChecked(s);//測試員工找自己
         
         
     }

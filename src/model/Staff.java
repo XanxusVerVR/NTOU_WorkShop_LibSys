@@ -23,7 +23,10 @@ public class Staff extends User {
     public void removeBook(int bookId) {
         Book book = LibraryRepository.findBookById(bookId);
         if (book == null) {//如果沒有這本書存在，就不做動作。
-        } else if(book.getIsCheck()){//如果這本書被借走了，也不做動作
+            System.out.println("The book doesn't exist");
+        } 
+        else if(book.getIsCheck()){//如果這本書被借走了，也不做動作
+            System.out.println("The book was checked out");
         }
         else{
             LibraryRepository.romoveBookByList(book);
@@ -35,6 +38,9 @@ public class Staff extends User {
         boolean isStaff = false;
         if (super.getClass().getName().equals(u.getClass().getName())) {//判斷借與被借的人是不是都是員工
             isStaff = true;
+        }
+        if(isStaff){
+            System.out.println("Staff can't check out Staff");
         }
         if (!isStaff) {
             Book book;
@@ -53,6 +59,7 @@ public class Staff extends User {
                         book.setBorrower(wantCheckoutPerson.getUserName());
                         LibraryRepository.checkoutBook(book);
                     } catch (NullPointerException e) {//如果圖書館裡根本沒有這個書的ID，根本沒此書的存在就不動作
+                        System.out.println("The book doesn't exist");
                     }
                 }
             }
@@ -63,7 +70,7 @@ public class Staff extends User {
     public void theReturnBook(int bookId) {//還書
         Book book = LibraryRepository.findBookById(bookId);
         if (book==null) {//如果這本書不存在，就不做動作
-            System.out.println("不存在此書");
+            System.out.println("The book doesn't exist");
         }
         else if(!LibraryRepository.isCheckedOut(bookId)){//不能歸還沒有被借走的書，書還在圖書館裡
             System.out.println("Can not return since the book isn't checked out");
@@ -82,6 +89,9 @@ public class Staff extends User {
         if (super.getClass().getName().equals(u.getClass().getName())) {//如果員工查員工
             isStaff = true;
         }
+        if(isStaff){//如果員工查員工，就印出
+            System.out.println("Staff can't query Staff");
+        }
         if (!isStaff) {//如果是員工查員工，就不動作
             List<Book> bookList;
             Borrower queryPersoned = (Borrower) u;//queryPersoned為被查的借閱人
@@ -91,7 +101,7 @@ public class Staff extends User {
                     System.out.println(showFormatResult(bookList.get(i)));
                 }
             } catch (NullPointerException e) {//判斷借閱人有沒有借書，沒有借書就不動作
-
+                System.out.println("The Borrower not checked out");
             }
         }
     }
