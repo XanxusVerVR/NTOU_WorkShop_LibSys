@@ -25,27 +25,25 @@ public abstract class User {
     public abstract void findChecked(User thisUser);
 
     public void listAuthor(String authorName) {
-        List<Book> bookList;
-        bookList = LibraryRepository.findBookByAuthor(authorName);
-        try {
+        List<Book> bookList = LibraryRepository.findBookByAuthor(authorName);
+        if (bookList == null) {
+            System.out.println("Log:" + "There is no book for this author");
+        } else {
             for (int i = 0; i < bookList.size(); i++) {
                 System.out.println(showFormatResult(bookList.get(i)));
             }
-        } catch (NullPointerException e) {//如果為空就不動作
-            System.out.println("There is no book for this author");
         }
     }
 
     public void listSubject(String subjectName) {
-        List<Book> bookList;
-        bookList = LibraryRepository.findBookBySubject(subjectName);
-        try {
+        List<Book> bookList = LibraryRepository.findBookBySubject(subjectName);
+        if (bookList == null) {
+            System.out.println("Log:" + "There is no book for this subject");
 
+        } else {
             for (int i = 0; i < bookList.size(); i++) {
                 System.out.println(showFormatResult(bookList.get(i)));
             }
-        } catch (NullPointerException e) {//如果為空就不動作
-            System.out.println("There is no book for this subject");
         }
     }
 
