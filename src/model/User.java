@@ -27,7 +27,7 @@ public abstract class User {
     public void listAuthor(String authorName) {
         List<Book> bookList = LibraryRepository.findBookByAuthor(authorName);
         if (bookList == null) {
-            System.out.println("Log:" + "There is no book for this author");
+            System.out.println("Log: " + "沒有名為"+authorName+"此作者的書");
         } else {
             for (int i = 0; i < bookList.size(); i++) {
                 System.out.println(showFormatResult(bookList.get(i)));
@@ -38,7 +38,7 @@ public abstract class User {
     public void listSubject(String subjectName) {
         List<Book> bookList = LibraryRepository.findBookBySubject(subjectName);
         if (bookList == null) {
-            System.out.println("Log:" + "There is no book for this subject");
+            System.out.println("Log: " + "沒有名為"+subjectName+"此作者的書");
 
         } else {
             for (int i = 0; i < bookList.size(); i++) {

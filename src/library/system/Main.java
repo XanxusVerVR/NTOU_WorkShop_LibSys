@@ -23,8 +23,9 @@ public class Main {
 
         final String[] splittedStr = content.split("\n");
         for (String s : splittedStr) {
-            commandList.add(s);
-
+            if (!s.equals("")) {
+                commandList.add(s);
+            }
         }
         createBookByCommand();
         createUserByCommand();

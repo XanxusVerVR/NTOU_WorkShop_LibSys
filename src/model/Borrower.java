@@ -7,7 +7,6 @@ import operation.LibException;
 
 public class Borrower extends User {
 
-    private String userName;//這個借閱人的名字
     private int predefinedBorrowBookNumber;//他最多能借的書的數量
 
     public Borrower(String userName, int predefinedBorrowBookNumber) {
@@ -49,13 +48,12 @@ public class Borrower extends User {
         if (super.getUserName().equals(queryPersonedName)) {//super.getUserName()為操作此方法的借閱者名字。如果此借閱者名字與被查的一樣，就查詢，表示自己查自己。
             bookList = LibraryRepository.findBookByBorrower(super.getUserName());
             if (bookList == null) {
-                System.out.println("Log:" + "你目前沒有借書出去");
+                System.out.println("Log: " + "名為"+queryPersonedName+"的借閱人，你目前沒借書出去");
             } else {
                 for (int i = 0; i < bookList.size(); i++) {
                     System.out.println(showFormatResult(bookList.get(i)));
                 }
             }
-
         } else {//如果借閱者去查其他人，就不給查。
             System.out.println("Borrower can not find books checked out by other users");
         }

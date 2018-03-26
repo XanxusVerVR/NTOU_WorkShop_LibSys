@@ -12,13 +12,13 @@ public class LibraryRepository {
 
     //如果false代表lib已存在相同subject
     public static boolean addBookToList(Book book) {
-        boolean existbook = false;
+        //boolean existbook = false;
         boolean res = false;
-        if (!bookList.isEmpty()) {
+        /*if (!bookList.isEmpty()) {
             existbook = existBook(book.getSubject());
-        }
+        }*/
 
-        if (!existbook && (book.getSubject() != null) && (book.getAuthor() != null)) {
+        if ((book.getSubject() != null) && (book.getAuthor() != null)) {
             book.setBookId(currentId++);
             bookList.add(book);
             res = true;
