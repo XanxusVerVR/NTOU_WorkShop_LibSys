@@ -7,6 +7,7 @@ import java.util.List;
 public class LibraryRepository {
 
     private static List<Book> bookList = new ArrayList<Book>();
+    ;
     private static int currentId;
 
     //如果false代表lib已存在相同subject
@@ -106,7 +107,6 @@ public class LibraryRepository {
     public static List<Book> findBookByBorrower(String borrower) {
         List<Book> list = new ArrayList<Book>();
         for (int i = 0; i < bookList.size(); i++) {
-//            System.out.println(bookList.get(i).getBorrower() + "," + borrower);
             if (bookList.get(i).getBorrower() == borrower) {
                 list.add(bookList.get(i));
             }

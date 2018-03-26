@@ -7,18 +7,15 @@ import java.util.Queue;
 import model.*;
 
 public class Main {
-    static ArrayList<Book> newBook;//我自己測試用
-    static ArrayList<Integer> checkoutBookNumber;//我自己測試用，存要借的書ID
-//    static ArrayList<Book> book = new ArrayList<Book>();//用來儲存所有的書
-//    static Queue<String> commandList = new LinkedList<String>();
-//    static ArrayList<Staff> staff = new ArrayList<Staff>();
-//    static ArrayList<User> user = new ArrayList<User>();//用來儲存所有類型的使用者
-//    static ArrayList<Borrower> brrower = new ArrayList<Borrower>();
+
+    static ArrayList<Book> books = new ArrayList<Book>();
+    static ArrayList<User> users = new ArrayList<User>();
+    static Queue<String> commandList = new LinkedList<String>();
+
     public static void main(String[] args) {
-        /*
         String path = "";
-        path = ""+ InputHandler.class.getClassLoader().getResource("");
-        path = path.substring(6)+"sampleInput";
+        path = "" + InputHandler.class.getClassLoader().getResource("");
+        path = path.substring(6) + "sampleInput";
         InputHandler inputHandler = new InputHandler(path);
         String content = inputHandler.getInputByFile();
 
@@ -27,84 +24,13 @@ public class Main {
             commandList.add(s);
 
         }
-        getBookByCommand();
-        getUserByCommand();
+        createBookByCommand();
+        createUserByCommand();
         getBehaviorByCommand();
-        */
-        
-        newBook = new ArrayList<Book>();
-
-        User s = new Staff("userA");
-        User b = new Borrower("userB",2);//借閱人名字叫userB,最多能借2本
-        User b2 = new Borrower("userC",3);//借閱人名字叫userB,最多能借2本
-        
-        Book book0 = new Book();
-        book0.setAuthor("戴碩宏");
-        book0.setSubject("Lua");
-//        book0.setIsCheck(true);
-        newBook.add(book0);
-//
-        Book book1 = new Book();
-        book1.setAuthor("馬尚彬");
-        book1.setSubject("Java");
-        newBook.add(book1);
-//
-        for(int i = 0 ;i<newBook.size() ; i++){
-            s.addBook(newBook.get(i));
-        }
-//
-        Book book2 = new Book();
-        book2.setAuthor("馬英九");
-        book2.setSubject("商業理財");
-        s.addBook(book2);
-//        
-        Book book3 = new Book();
-        book3.setAuthor("郭忠義");
-        book3.setSubject("心理勵志");
-        s.addBook(book3);
-//
-        s.listAuthor("馬尚彬");
-        System.out.println("-----remove-----");
-        s.removeBook(0);
-        System.out.println("----------");
-        s.listAuthor("戴碩宏");
-        s.listAuthor("馬尚彬");
-        s.listAuthor("馬英九");
-        s.listAuthor("郭忠義");
-        System.out.println("----------");
-
-        checkoutBookNumber = new ArrayList<Integer>();
-        checkoutBookNumber.add(1);
-        checkoutBookNumber.add(3);
-        s.checkout(b, checkoutBookNumber);//OK!有借出兩本書
-        s.findChecked(b);//OK，有兩本書
-        System.out.println("---------");
-        System.out.println("歸還：");
-        s.theReturnBook(1);
-        s.findChecked(b);//OK!!只有一本書，且是編號2、馬英九
-        System.out.println("----------");
-        s.listAuthor("戴碩宏");//測試以作者找書。OK!!
-        System.out.println("----------");
-        s.listSubject("心理勵志");//測試以主題找書。OK!!
-        System.out.println("----s.findChecked(b)------");
-        s.findChecked(b);//測試 查詢此借閱人借了哪些書。OK!!
-        System.out.println("----s.findBorrower(2)------");
-        s.findBorrower(3);//測試 查詢此編號的書被誰借走。
-        
-        
-        System.out.println("---b.findChecked(b)---");
-        b.findChecked(b);//測試通過，可以查自己
-        b.findChecked(b2);//測試通過，不可查別人
-        System.out.println("------");
-        b.findBorrower(1);//測試通過，借閱人不能操作此功能
-        System.out.println("---end---");
-        s.findChecked(s);//測試員工找自己
-        
-        
     }
-    
-    /*
-    public static void getBookByCommand() {
+
+    public static void createBookByCommand() {
+        User staff = new Staff("test");
         for (int i = 0; i < commandList.size(); i++) {
             String currentCmd = commandList.poll();
             if (currentCmd.matches("\\d")) {
@@ -114,38 +40,30 @@ public class Main {
                     String[] s = commandList.poll().split(" ");
                     String bookAuthor = s[0];
                     String bookSubject = s[1];
-                    
                     book1.setAuthor(bookAuthor);
                     book1.setSubject(bookSubject);
-                    book.add(book1);
-                    System.out.println(bookAuthor + "," + bookSubject);
+                    books.add(book1);
+                    staff.addBook(book1);
                 }
                 return;
             }
         }
     }
 
-    public static void getUserByCommand() {
+    public static void createUserByCommand() {
         for (int i = 0; i < commandList.size(); i++) {
             String currentCmd = commandList.poll();
             if (currentCmd.matches("\\d")) {
                 int userNum = Integer.parseInt(currentCmd);
                 for (int j = 0; j < userNum; j++) {
-                    User saveUser;
                     String[] s = commandList.poll().split(" ");
-                    if(s.length == 2){//2表示是員工
-                        User staff = new Staff(s[1]);//s[1]為員工名字
-                        saveUser = (User) staff;//存到User
+                    User user;
+                    if (s.length == 2) { //2表示是員工
+                        user = new Staff(s[1]); //s[1]為員工名字
+                    } else { //不然就是借閱人
+                        user = new Borrower(s[1], Integer.parseInt(s[2])); //s[1]為借閱人名字、s[2]為此借閱人最多可借的書數量
                     }
-                    else{//不然就是借閱人
-                        User borrower = new Borrower(s[1],Integer.parseInt(s[2]));//s[1]為借閱人名字、s[2]為此借閱人最多可借的書數量
-                        saveUser = (User) borrower;//存到User
-                    }
-//                    String userType = s[0];
-//                    String userName = s[1];
-//                    String bookId = s[2];
-//                    System.out.println(userType + "," + userName);
-                    user.add(saveUser);//將此使用者存入ArrayList<User>這個容器
+                    users.add(user); //將此使用者存入ArrayList<User>這個容器
                 }
                 return;
             }
@@ -155,26 +73,54 @@ public class Main {
     public static void getBehaviorByCommand() {
         while (!commandList.isEmpty()) {
             String currentCmd = commandList.poll();
+            String[] s = currentCmd.split(" ");
+            String userName = s[0];
             if (currentCmd.contains("addBook")) {
-
-            } else if (currentCmd.contains("addBook")) {
-
+                currentCmd = commandList.poll();
+                String[] bookInfo = currentCmd.split(" ");
+                String bookAuthor = bookInfo[0];
+                String bookSubject = bookInfo[1];
+                Book book = new Book();
+                book.setAuthor(bookAuthor);
+                book.setSubject(bookSubject);
+                findUser(userName).addBook(book);
             } else if (currentCmd.contains("removeBook")) {
-
+                int bookId = Integer.parseInt(s[2]);
+                findUser(userName).removeBook(bookId);
             } else if (currentCmd.contains("checkout")) {
-
+                String borrower = s[2];
+                currentCmd = commandList.poll();
+                String[] bookId = currentCmd.split(" ");
+                ArrayList<Integer> bookIdList = new ArrayList<Integer>();
+                for (int i = 0; i < bookId.length; i++) {
+                    bookIdList.add(Integer.parseInt(bookId[i]));
+                }
+                findUser(userName).checkout(findUser(borrower), bookIdList);
             } else if (currentCmd.contains("return")) {
-
+                int bookId = Integer.parseInt(s[2]);
+                findUser(userName).theReturnBook(bookId);
             } else if (currentCmd.contains("listAuthor")) {
-
+                String author = s[2];
+                findUser(userName).listAuthor(author);
             } else if (currentCmd.contains("listSubject")) {
-
-            } else if (currentCmd.contains("listSubject")) {
-
+                String subject = s[2];
+                findUser(userName).listSubject(subject);
+            } else if (currentCmd.contains("findChecked")) {
+                String borrower = s[2];
+                findUser(userName).findChecked(findUser(borrower));
             } else if (currentCmd.contains("findBorrower")) {
-
+                int bookId = Integer.parseInt(s[2]);
+                findUser(userName).findBorrower(bookId);
             }
         }
     }
-    */
+
+    public static User findUser(String userName) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUserName().equals(userName)) {
+                return users.get(i);
+            }
+        }
+        return null;
+    }
 }

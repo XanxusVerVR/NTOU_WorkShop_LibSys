@@ -37,10 +37,8 @@ public class Staff extends User {
     public void checkout(User u, ArrayList<Integer> bookNumberList) {//員工把書借給借閱人
         boolean isStaff = false;
         if (super.getClass().getName().equals(u.getClass().getName())) {//判斷借與被借的人是不是都是員工
-            isStaff = true;
-        }
-        if(isStaff){
             System.out.println("Staff can't check out Staff");
+            isStaff = true;
         }
         if (!isStaff) {
             Book book;
@@ -87,10 +85,8 @@ public class Staff extends User {
     public void findChecked(User u) {//員工查看借閱人借了哪些書
         boolean isStaff = false;
         if (super.getClass().getName().equals(u.getClass().getName())) {//如果員工查員工
-            isStaff = true;
-        }
-        if(isStaff){//如果員工查員工，就印出
             System.out.println("Staff can't query Staff");
+            isStaff = true;
         }
         if (!isStaff) {//如果是員工查員工，就不動作
             List<Book> bookList;
