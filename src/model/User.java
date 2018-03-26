@@ -38,7 +38,7 @@ public abstract class User {
     public void listSubject(String subjectName) {
         List<Book> bookList = LibraryRepository.findBookBySubject(subjectName);
         if (bookList == null) {
-            System.out.println("Log: " + "沒有名為"+subjectName+"此作者的書");
+            System.out.println("Log: " + "沒有此"+subjectName+"主題的書");
 
         } else {
             for (int i = 0; i < bookList.size(); i++) {

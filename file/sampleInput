@@ -1,9 +1,20 @@
-3
+5
 AuthorA SubjectA
 AuthorB SubjectB
 AuthorC SubjectC
+AuthorC SubjectD
+AuthorD SubjectC
 3
 Staff UserA
 Borrower UserB 2
 Borrower UserC 3
-UserB findChecked UserB
+UserA removeBook 0
+UserA listAuthor AuthorB
+UserA listAuthor AuthorC
+UserA listAuthor AuthorD
+UserA addBook
+test testA
+UserA listAuthor test
+UserA findBorrower 0
+UserA findBorrower 1
+UserA findBorrower 2
