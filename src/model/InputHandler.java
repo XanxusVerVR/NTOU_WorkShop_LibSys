@@ -3,6 +3,8 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class InputHandler {
 
@@ -16,13 +18,17 @@ public class InputHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public String getInputByFile() {
+    public Queue<String> getCommandByFile() {
+        String content = readFile();
+        Queue<String> commandList = getQueueByString(content);
+        return commandList;
+    }
+
+    private String readFile() {
         StringBuilder sb = new StringBuilder();
         try {
-
             String line;
             while ((line = br.readLine()) != null) {
                 if (sb.length() > 0) {
@@ -41,7 +47,18 @@ public class InputHandler {
                 ex.printStackTrace();
             }
         }
-        String contents = sb.toString();
-        return contents;
+        return sb.toString();
+    }
+
+    //名子怪怪的
+    private Queue<String> getQueueByString(String str) {
+        Queue<String> queue = new LinkedList<String>();
+        final String[] splittedStr = str.split("\n");
+        for (String s : splittedStr) {
+            if (!s.equals("")) {
+                queue.add(s);
+            }
+        }
+        return queue;
     }
 }

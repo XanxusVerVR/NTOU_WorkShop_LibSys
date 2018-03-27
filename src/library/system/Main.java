@@ -19,14 +19,8 @@ public class Main {
 //        path = path.substring(6) + "sampleInput";
 //        System.out.println(path);
         InputHandler inputHandler = new InputHandler("/Users/xanxus/Desktop/NTOU_WorkShop_LibSys/file/sampleInput");
-        String content = inputHandler.getInputByFile();
+        commandList = inputHandler.getCommandByFile();
 
-        final String[] splittedStr = content.split("\n");
-        for (String s : splittedStr) {
-            if (!s.equals("")) {
-                commandList.add(s);
-            }
-        }
         createBookByCommand();
         createUserByCommand();
         getBehaviorByCommand();
