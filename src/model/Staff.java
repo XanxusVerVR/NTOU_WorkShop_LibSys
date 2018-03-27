@@ -39,24 +39,30 @@ public class Staff extends User {
         if (!isStaff) {
             Book book = null;
             Borrower wantCheckoutPerson = (Borrower) u;//wantCheckoutPerson為想要借書的人
-            try {
-                checkLimitationNumber(bookNumberList.size(), wantCheckoutPerson.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
-            } catch (LibException e) {
-                e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
+            if(bookNumberList.size() > wantCheckoutPerson.getPredefinedBorrowBookNumber()){
+                System.out.println("Can not check out since the number of books exceed the limitation of user can check-out");
             }
-            for (int i = 0; i < bookNumberList.size(); i++) {
-                if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
-                    System.out.println("Can not check out since the book is checked out");
-                } else {
-                    book = LibraryRepository.findBookById(bookNumberList.get(i));
-                    if (book == null) {//如果圖書館裡根本沒有這個書的ID，根本沒此書的存在就不動作
-                        System.out.println("Log: " + "此書不存在");
+            else{
+                for (int i = 0; i < bookNumberList.size(); i++) {
+                    if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
+                        System.out.println("Can not check out since the book is checked out");
                     } else {
-                        book.setBorrower(wantCheckoutPerson.getUserName());
-                        LibraryRepository.checkoutBook(book);
+                        book = LibraryRepository.findBookById(bookNumberList.get(i));
+                        if (book == null) {//如果圖書館裡根本沒有這個書的ID，根本沒此書的存在就不動作
+                            System.out.println("Log: " + "此書不存在");
+                        } else {
+                            book.setBorrower(wantCheckoutPerson.getUserName());
+                            LibraryRepository.checkoutBook(book);
+                        }
                     }
                 }
             }
+//            try {
+//                checkLimitationNumber(bookNumberList.size(), wantCheckoutPerson.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
+//            } catch (LibException e) {
+//                e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
+//            }
+            
         }
     }
 
@@ -108,9 +114,9 @@ public class Staff extends User {
 
     }
 
-    public void checkLimitationNumber(int bookNumberListSize, int theBorrowerPredefinedBorrowBookNumber) throws LibException {
-        if (bookNumberListSize > theBorrowerPredefinedBorrowBookNumber) {
-            throw new LibException();
-        }
-    }
+//    public Boolean checkLimitationNumber(int bookNumberListSize, int theBorrowerPredefinedBorrowBookNumber) throws LibException {
+//        if (bookNumberListSize > theBorrowerPredefinedBorrowBookNumber) {
+////            throw new LibException();
+//        }
+//    }
 }

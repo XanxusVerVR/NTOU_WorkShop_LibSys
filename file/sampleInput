@@ -6,17 +6,11 @@ AuthorC SubjectB
 AuthorA SubjectB
 AuthorD SubjectD
 AuthorD SubjectD
-3
+2
 Staff UserA
-Borrower UserB 1
-Borrower UserC 3
-UserA checkout UserB
-4
-UserA findChecked UserB
-UserA findChecked UserC
-UserA checkout UserC
-1 2 4
-UserA findChecked UserC
-UserA findBorrower 1
-UserA findBorrower 2
+Borrower UserD 1
+UserA checkout UserD
+4 5
+UserA findChecked UserD
 UserA findBorrower 4
+UserA findBorrower 5
