@@ -3,8 +3,6 @@ package model;
 import bean.Book;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import operation.LibException;
 
 public class Staff extends User {
 
@@ -21,9 +19,9 @@ public class Staff extends User {
     public void removeBook(int bookId) {
         Book book = LibraryRepository.findBookById(bookId);
         if (book == null) {//如果沒有這本書存在，就不做動作。
-            System.out.println("Log: " + "此bookId為"+bookId+"的書不存在");
+            System.out.println("Log: " + "此bookId為" + bookId + "的書不存在");
         } else if (book.getIsCheck()) {//如果這本書被借走了，也不做動作
-            System.out.println("Log: " + "此bookId為"+bookId+"的書被借走了");
+            System.out.println("Log: " + "此bookId為" + bookId + "的書被借走了");
         } else {
             LibraryRepository.romoveBookByList(book);
         }
@@ -39,10 +37,9 @@ public class Staff extends User {
         if (!isStaff) {
             Book book = null;
             Borrower wantCheckoutPerson = (Borrower) u;//wantCheckoutPerson為想要借書的人
-            if(bookNumberList.size() > wantCheckoutPerson.getPredefinedBorrowBookNumber()){
+            if (bookNumberList.size() > wantCheckoutPerson.getPredefinedBorrowBookNumber()) {
                 System.out.println("Can not check out since the number of books exceed the limitation of user can check-out");
-            }
-            else{
+            } else {
                 for (int i = 0; i < bookNumberList.size(); i++) {
                     if (LibraryRepository.isCheckedOut(bookNumberList.get(i))) {//書已經被借走
                         System.out.println("Can not check out since the book is checked out");
@@ -57,12 +54,6 @@ public class Staff extends User {
                     }
                 }
             }
-//            try {
-//                checkLimitationNumber(bookNumberList.size(), wantCheckoutPerson.getPredefinedBorrowBookNumber());//確認要借給借閱人的書數量低於上限
-//            } catch (LibException e) {
-//                e.predefinedBorrowBookNumberException();//如果高於，印出Can not check out since the number of books exceed the limitation of user can check-out
-//            }
-            
         }
     }
 
@@ -70,7 +61,7 @@ public class Staff extends User {
     public void theReturnBook(int bookId) {//還書
         Book book = LibraryRepository.findBookById(bookId);
         if (book == null) {//如果這本書不存在，就不做動作
-            System.out.println("Log: " + "此bookId為"+bookId+"的書不存在");
+            System.out.println("Log: " + "此bookId為" + bookId + "的書不存在");
         } else if (!LibraryRepository.isCheckedOut(bookId)) {//不能歸還沒有被借走的書，書還在圖書館裡
             System.out.println("Can not return since the book isn't checked out");
         } else {
@@ -78,7 +69,6 @@ public class Staff extends User {
             book.setBookId(bookId);
             LibraryRepository.returnBook(book);
         }
-
     }
 
     @Override
@@ -93,13 +83,12 @@ public class Staff extends User {
             Borrower queryPersoned = (Borrower) u;//queryPersoned為被查的借閱人
             bookList = LibraryRepository.findBookByBorrower(queryPersoned.getUserName());
             if (bookList == null) {
-                System.out.println("Log: " + "名為"+queryPersoned.getUserName()+"的借閱人沒有借書");
+                System.out.println("Log: " + "名為" + queryPersoned.getUserName() + "的借閱人沒有借書");
             } else {
                 for (int i = 0; i < bookList.size(); i++) {
                     System.out.println(showFormatResult(bookList.get(i)));
                 }
             }
-
         }
     }
 
@@ -107,16 +96,10 @@ public class Staff extends User {
     public void findBorrower(int bookId) {
         String checkoutUserB = LibraryRepository.findBorrower(bookId);
         if (checkoutUserB == null) {
-            System.out.println("Log: " + "此bookId為"+bookId+"的書已移除or沒有借出去");
+            System.out.println("Log: " + "此bookId為" + bookId + "的書已移除or沒有借出去");
         } else {
             System.out.println("User: " + checkoutUserB);
         }
 
     }
-
-//    public Boolean checkLimitationNumber(int bookNumberListSize, int theBorrowerPredefinedBorrowBookNumber) throws LibException {
-//        if (bookNumberListSize > theBorrowerPredefinedBorrowBookNumber) {
-////            throw new LibException();
-//        }
-//    }
 }

@@ -3,7 +3,6 @@ package model;
 import bean.Book;
 import java.util.ArrayList;
 import java.util.List;
-import operation.LibException;
 
 public class Borrower extends User {
 
