@@ -42,12 +42,12 @@ public class Borrower extends User {
     @Override
     public void findChecked(User u) {//userB為被查的人
         List<Book> bookList = null;
-        Borrower queryPersoned = (Borrower) u;//queryPersoned為被查的人
-        String queryPersonedName = queryPersoned.getUserName();
-        if (super.getUserName().equals(queryPersonedName)) {//super.getUserName()為操作此方法的借閱者名字。如果此借閱者名字與被查的一樣，就查詢，表示自己查自己。
-            bookList = LibraryRepository.findBookByBorrower(queryPersonedName);
+//        Borrower queryPersoned = (Borrower) u;//queryPersoned為被查的人
+//        String queryPersonedName = queryPersoned.getUserName();
+        if (super.getUserName().equals(u.getUserName()) && super.getClass().getName().equals(u.getClass().getName())) {//super.getUserName()為操作此方法的借閱者名字。如果此借閱者名字與被查的一樣，就查詢，表示自己查自己。
+            bookList = LibraryRepository.findBookByBorrower(u.getUserName());
             if (bookList == null) {
-                System.out.println("Log: " + "名為"+queryPersonedName+"的借閱人，你目前沒借書出去");
+                System.out.println("Log: " + "名為"+u.getUserName()+"的借閱人，你目前沒借書出去");
             } else {
                 for (int i = 0; i < bookList.size(); i++) {
                     System.out.println(showFormatResult(bookList.get(i)));
